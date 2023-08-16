@@ -1,13 +1,23 @@
+import { Routes, Route } from "react-router-dom";
+import { NavBar } from './components'
+import * as Pages from "./pages";
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-    <h1>UnderBeasts</h1>
+      <Routes>
+        <Route path="/" element={<NavBar />}>
+          <Route index element={<Pages.Home />} />
+          <Route path="/login" element={<Pages.Login />} />
+          <Route path="/signup" element={<Pages.Signup />} />
+
+          <Route path="*" element={<Pages.NotFound />} />
+        </Route>
+      </Routes>
     </>
-  )
+  );
 }
 
 export default App
