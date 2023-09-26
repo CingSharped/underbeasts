@@ -8,7 +8,16 @@ const Schema = mongoose.Schema;
 
 // Define Schema for User model
 const userSchema = new Schema({
+  _id: {
+    type: String,
+  },
   username: {
+    type: String,
+    lowercase: true,
+    required: true,
+    unique: true,
+  },
+  email: {
     type: String,
     lowercase: true,
     required: true,
@@ -18,6 +27,12 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  name: {
+    type: String,
+  },
+  surname: {
+    type: String,
+  },
   createdOn: {
     type: Date,
     default: () => Date.now(),
@@ -25,10 +40,27 @@ const userSchema = new Schema({
 });
 
 // Static signup method
-userSchema.statics.signup = async function (username, password) {
-  // Check if both username and password are provided
-  if (!password || !username) {
-    throw Error("All fields required!");
+userSchema.statics.signup = async function (username, email, password, name, surname) {
+  // Name and surname are not required fields, the user will be able to enter these on their profile page
+
+  // Check if username is present
+  if (!username) {
+    throw Error("Username is required!")
+  }
+  // Check if email is present
+  if (!email) {
+    throw Error("Email is required");
+  }
+  // Check is password is present
+  if (!password) {
+    throw Error("Password is required")
+  }
+
+  // Check if email already exists in the datbase
+  const emailExists = await this.exists({ email });
+
+  if (emailExists) {
+    throw Error("Email is already associated with an account");
   }
 
   // Check if the username already exists in the database
@@ -44,16 +76,24 @@ userSchema.statics.signup = async function (username, password) {
   const hash = await bcrypt.hash(password, salt);
 
   // Create a new user document in the database
-  const user = await this.create({ username, password: hash });
+  const user = await this.create({ username, email, password: hash });
 
   return user;
 };
 
 // Static login method
-userSchema.statics.login = async function (username, password) {
-  // Check if both username and password are provided
-  if (!password || !username) {
-    throw Error("All fields required!");
+userSchema.statics.login = async function (username, email, password) {
+  // Check if an email or username present
+  if (!username || !email) {
+    throw Error("An email or username is required!")
+  }
+
+  // Check is using email or username to login
+  const usingEmail = !email ? false : true;
+
+  // Check password is present
+  if (!password) {
+    throw Error("A password is required!");
   }
 
   // Find the user document with the given username
