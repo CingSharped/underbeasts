@@ -29,7 +29,7 @@ const loginUser = async (req, res) => {
 // Signup User
 const signupUser = async (req, res) => {
   // Extract username and password from request body
-  const { username, password } = req.body;
+  const { username, email, password, name, surname} = req.body;
   try {
     // Attempt to sign up the user using the User model
     const user = await User.signup(username.toLowerCase(), password);
