@@ -5,6 +5,7 @@ import './styles.css'
 
 const SignupForm = () => {
   const [usernameInput, setUsernameInput] = useState("");
+  const [emailInput, setEmailInput] = useState
   const [passwordInput, setPasswordInput] = useState("");
   const inputRef = useRef();
 
