@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 mongoose
   .connect(
     process.env.MONGO_URI,
-    process.env.DEV ? { dbName: "test" } : { dbName: "cramodoro" }
+    process.env.DEV ? { dbName: "test" } : { dbName: "underbeasts" }
   )
   .then(() => {
     // Start the Express app and listen on the specified port
