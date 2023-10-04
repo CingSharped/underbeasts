@@ -29,10 +29,10 @@ const loginUser = async (req, res) => {
 // Signup User
 const signupUser = async (req, res) => {
   // Extract username and password from request body
-  const { username, email, password, name, surname} = req.body;
+  const { username, email, password} = req.body;
   try {
     // Attempt to sign up the user using the User model
-    const user = await User.signup(username.toLowerCase(), password);
+    const user = await User.signup(username.toLowerCase(),email, password);
 
     // Generate a token for the user
     const token = createToken(user._id);

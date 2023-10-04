@@ -8,9 +8,6 @@ const Schema = mongoose.Schema;
 
 // Define Schema for User model
 const userSchema = new Schema({
-  _id: {
-    type: String,
-  },
   username: {
     type: String,
     lowercase: true,
@@ -40,7 +37,7 @@ const userSchema = new Schema({
 });
 
 // Static signup method
-userSchema.statics.signup = async function (username, email, password, name, surname) {
+userSchema.statics.signup = async function (username, email, password) {
   // Name and surname are not required fields, the user will be able to enter these on their profile page
 
   // Check if username is present
