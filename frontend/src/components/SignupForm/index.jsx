@@ -5,7 +5,7 @@ import './styles.css'
 
 const SignupForm = () => {
   const [usernameInput, setUsernameInput] = useState("");
-  const [emailInput, setEmailInput] = useState
+  const [emailInput, setEmailInput] = useState("")
   const [passwordInput, setPasswordInput] = useState("");
   const inputRef = useRef();
 
@@ -23,11 +23,15 @@ const SignupForm = () => {
     e.preventDefault()
     setPasswordInput(e.target.value)
   }
+  const handleEmail = (e) => {
+    e.preventDefault()
+    setEmailInput(e.target.value)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     // const response = await axios.post('SignupLink',
-    // {username: usernameInput, password: passwordInput})
+    // {username: usernameInput,email: emailInput password: passwordInput})
     // console.log(response)
 
   }
@@ -48,11 +52,21 @@ const SignupForm = () => {
           ref={inputRef}
         />
 
+        <label htmlFor="email">Email</label>
+        <input
+          className="input-field"
+          type="email"
+          placeholder="youremail@mail.com"
+          aria-label="Email textbox"
+          value={emailInput}
+          onChange={handleEmail}
+        />
+
         <label htmlFor="password">Password</label>
         <input
           className="input-field"
           type="password"
-          placeholder="Sup3rco0lp@assword"
+          placeholder="Sup3rco0lpassw0rd"
           aria-label="Password textbox"
           value={passwordInput}
           onChange={handlePassword}
