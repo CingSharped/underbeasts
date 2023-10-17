@@ -29,11 +29,10 @@ const SignupForm = () => {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    // const response = await axios.post('SignupLink',
-    // {username: usernameInput,email: emailInput password: passwordInput})
-    // console.log(response)
-
+    e.preventDefault();
+    const response = await axios.post('https://underbeasts-be.onrender.com/users/signup',
+    {username: usernameInput,email: emailInput, password: passwordInput})
+    console.log(response)
   }
 
   return (
